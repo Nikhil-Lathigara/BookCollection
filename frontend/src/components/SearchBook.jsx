@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 function SearchBook() {
   const { id } = useParams(); // Expecting id from the URL
   const apiUrl = "http://localhost:5000";
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState([]);
   const [error, setError] = useState("");
@@ -21,39 +22,60 @@ function SearchBook() {
       setFormData(info.data);
       setError(""); // Clear error if data is found
     } catch (err) {
-      setError("Book Not Found");
+      setError("Book Not Found",err);
       setFormData(null);
     }
+  }
+
+  async function deleteBookHandler(book) {
+    await axios.delete(`${apiUrl}/api/deletebook/${book._id}`);
+    navigate("/");
+  }
+  function updateHandler(book) {
+    navigate(`/editbook/${book._id}`);
   }
 
   return (
     <>
       {formData ? (
-        <div className="table table-striped-columns text-center">
-          <table cellPadding={4} border={4} align="center" className="mt-4">
-            <thead>
-              <tr>
-                <th>Book Id</th>
-                <th>Book Name</th>
-                <th>Author</th>
-                <th>Stock</th>
-                <th>Publish Date</th>
-                <th>Price</th>
-                <th>Book Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{formData.bookId}</td>
-                <td>{formData.bookName}</td>
-                <td>{formData.author}</td>
-                <td>{formData.stock}</td>
-                <td>{new Date(formData.pubDate).toLocaleDateString()}</td>
-                <td>{formData.price}</td>
-                <td>{formData.bookType}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="container">
+          <div className="row">
+          <div key={formData.bookId} className="col-sm-12 col-md-6 col-lg-4 mb-4">
+        <div className="card" style={{ width: "100%" }}>
+          <div className="card-body">
+            <h5 className="card-title">
+              {formData.bookId} {formData.bookName}
+            </h5>
+            <h6 className="card-subtitle mb-2 text-body-secondary">
+              Author : {formData.author}
+            </h6>
+            <p className="card-text">
+              Date Published : {formData.pubDate}
+              <br />
+              Price : {formData.price}
+              <br />
+              Stock : {formData.stock}
+            </p>
+            <button
+                      className="mx-2 btn btn-warning"
+                      onClick={() => updateHandler(formData)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="mx-2 btn btn-danger"
+                      onClick={() => {
+                        if (window.confirm("Are you sure you want to delete")) {
+                          deleteBookHandler(formData);
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+          </div>
+        </div>
+      </div>
+          </div>
         </div>
       ) : (
         <p style={{ color: "red" }}>{error}</p>

@@ -26,52 +26,48 @@ function Books() {
 
   return (
     <>
-      <div className="table table-striped-columns text-center">
-        <table cellPadding={4} border={4} align="center" className="my-4 w-100">
-          <tr>
-            <th>Book Id</th>
-            <th>Book Name</th>
-            <th>Author</th>
-            <th>Stock</th>
-            <th>Publish Date</th>
-            <th>Price</th>
-            <th>Book Type</th>
-            <th colSpan={2}>Action</th>
-          </tr>
+      <div className="container my-3">
+        <div className="row">
           {data.map((e) => {
             return (
-              <tr key={e.bookId}>
-                <td>{e.bookId}</td>
-                <td>{e.bookName}</td>
-                <td>{e.author}</td>
-                <td>{e.stock}</td>
-                <td>{e.pubDate}</td>
-                <td>{e.price}</td>
-                <td>{e.bookType}</td>
-                <td>
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => updateHandler(e)}
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      if (window.confirm("Are you sure you want to delete")) {
-                        deleteBookHandler(e);
-                      }
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            )
+              <div key={e.bookId} className="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div className="card" style={{ width: "100%" }}>
+                  <div className="card-body">
+                    <h5 className="card-title">
+                      {e.bookId} {e.bookName}
+                    </h5>
+                    <h6 className="card-subtitle mb-2 text-body-secondary">
+                      Author : {e.author}
+                    </h6>
+                    <p className="card-text">
+                      Date Published : {e.pubDate}
+                      <br />
+                      Price : {e.price}
+                      <br />
+                      Stock : {e.stock}
+                    </p>
+                    <button
+                      className="mx-2 btn btn-warning"
+                      onClick={() => updateHandler(e)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="mx-2 btn btn-danger"
+                      onClick={() => {
+                        if (window.confirm("Are you sure you want to delete")) {
+                          deleteBookHandler(e);
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
           })}
-        </table>
+        </div>
       </div>
     </>
   );
