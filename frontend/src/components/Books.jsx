@@ -6,13 +6,21 @@ function Books() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  const apiUrl = "http://localhost:5000";
+  const token = JSON.parse(localStorage.getItem('token'))
+
+
+  const apiUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}`;
   useEffect(() => {
     fetchData();
   }, []);
 
   async function fetchData() {
-    const info = await axios.get(`${apiUrl}/api/getallbooks`);
+        const header = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    const info = await axios.get(`${apiUrl}/api/getallbooks`,header);
     setData(info.data);
   }
 

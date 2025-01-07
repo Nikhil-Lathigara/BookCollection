@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 function EditBooks() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const apiUrl = "http://localhost:5000";
+  const apiUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}`;
 
   const [formData, setFormData] = useState({
     bookId: "",

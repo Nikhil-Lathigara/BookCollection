@@ -16,7 +16,7 @@ function App() {
   
     if (txt.trim()) {
       // Fetch book ID based on input (name or other parameter)
-      fetch(`http://localhost:5000/api/searchbook?query=${txt}`)
+      fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/searchbook?query=${txt}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Book not found");
