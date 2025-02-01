@@ -38,7 +38,7 @@ function SearchBook() {
   return (
     <>
       {formData ? (
-        <div className="container">
+        <div className="container my-3">
           <div className="row">
           <div key={formData.bookId} className="col-sm-12 col-md-6 col-lg-4 mb-4">
         <div className="card" style={{ width: "100%" }}>
