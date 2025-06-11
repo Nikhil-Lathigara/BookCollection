@@ -50,7 +50,7 @@ function SearchBook() {
               Author : {formData.author}
             </h6>
             <p className="card-text">
-              Date Published : {formData.pubDate}
+              Date Published : {new Date (formData.pubDate).toLocaleDateString()}
               <br />
               Price : {formData.price}
               <br />
