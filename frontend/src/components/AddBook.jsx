@@ -6,7 +6,6 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 function AddBook() {
   const navigate = useNavigate();
-  const apiUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}`;
 
   const [formData, setFormData] = useState({
     bookId: "",
@@ -24,7 +23,7 @@ function AddBook() {
 
   async function submitHandler(e) {
     e.preventDefault();
-    await axios.post(`${apiUrl}/api/addbook`, formData);
+    await axios.post(`https://kitaab-backend-2.onrender.com/api/addbook`, formData);
     navigate("/");
   }
 
