@@ -42,7 +42,7 @@ function Books() {
     } catch (error) {
       console.error("Error fetching books:", error);
     }
-  }, [apiUrl, token]);
+  }, [ token]);
 
   const deleteBookHandler = useCallback(
     async (book) => {
@@ -61,7 +61,7 @@ function Books() {
         }
       }
     },
-    [apiUrl, token]
+    [ token]
   );
 
   const updateHandler = useCallback(
