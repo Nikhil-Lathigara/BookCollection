@@ -4,7 +4,6 @@ import { useParams,useNavigate } from "react-router-dom";
 
 function SearchBook() {
   const { id } = useParams(); // Expecting id from the URL
-  const apiUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}`;
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState([]);
@@ -18,7 +17,7 @@ function SearchBook() {
 
   async function fetchData() {
     try {
-      const info = await axios.get(`${apiUrl}/api/getbookbyid/${id}`, formData);
+      const info = await axios.get(`https://kitaab-backend-2.onrender.com/api/getbookbyid/${id}`, formData);
       setFormData(info.data);
       setError(""); // Clear error if data is found
     } catch (err) {
@@ -28,7 +27,7 @@ function SearchBook() {
   }
 
   async function deleteBookHandler(book) {
-    await axios.delete(`${apiUrl}/api/deletebook/${book._id}`);
+    await axios.delete(`https://kitaab-backend-2.onrender.com/api/deletebook/${book._id}`);
     navigate("/");
   }
   function updateHandler(book) {
