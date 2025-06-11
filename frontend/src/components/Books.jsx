@@ -25,7 +25,6 @@ function Books() {
   const navigate = useNavigate();
 
   const token = JSON.parse(localStorage.getItem("token"));
-  const apiUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}`;
 
   useEffect(() => {
     fetchData();
@@ -38,7 +37,7 @@ function Books() {
           Authorization: `Bearer ${token}`,
         },
       };
-      const response = await axios.get(`${apiUrl}/api/getallbooks`, header);
+      const response = await axios.get(`https://kitaab-backend-2.onrender.com/api/getallbooks`, header);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching books:", error);
@@ -51,7 +50,7 @@ function Books() {
         window.confirm(`Are you sure you want to delete "${book.bookName}"?`)
       ) {
         try {
-          await axios.delete(`${apiUrl}/api/deletebook/${book._id}`, {
+          await axios.delete(`https://kitaab-backend-2.onrender.com/api/deletebook/${book._id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
