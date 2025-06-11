@@ -5,7 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 function EditBooks() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const apiUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}`;
 
   const [formData, setFormData] = useState({
     bookId: "",
@@ -22,7 +21,7 @@ function EditBooks() {
   }, []);
 
   async function fetchData() {
-    const info = await axios.get(`${apiUrl}/api/getbookbyid/${id}`, formData);
+    const info = await axios.get(`https://kitaab-backend-2.onrender.com/api/getbookbyid/${id}`, formData);
     setFormData(info.data);
   }
   function inputHandler(e) {
@@ -35,7 +34,7 @@ function EditBooks() {
       alert("Please fill in all required fields.");
       return;
     }
-    axios.put(`${apiUrl}/api/updatebookinfo/${id}`, formData);
+    axios.put(`https://kitaab-backend-2.onrender.com/api/updatebookinfo/${id}`, formData);
     navigate("/");
   }
 
